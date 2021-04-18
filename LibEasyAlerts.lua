@@ -22,7 +22,6 @@ local SHIELD_NO_POINTS = [[Interface\AchievementFrame\UI-Achievement-Shields-NoP
 
 local Helper = {}
 
---item can be itemID or "itemString" or "itemName" or "itemLink"
 function Helper.GetIconFromItem(item) 
 	_, _, _, _, icon, _, _ = GetItemInfoInstant(item) 
 	return icon
@@ -36,7 +35,6 @@ function Helper.GetLinkFromItem(item)
 	return link
 end
 
---spell can be spellID or spellLink or SpellName
 function Helper.GetIconFromSpell(spell) 
 	_, _, icon = GetSpellInfo(spell)
 	return icon
@@ -118,20 +116,20 @@ local function DisplayAchievement(unlocked, name, points, icon, onClickFunction)
 end
 
 ---------------------------------------- Criteria ----------------------------------------
-local function Criteria_SetUp(frame, icon, text, title)
+local function Criteria_SetUp(frame, icon, name, unlocked)
 	local icon = icon or DEFAULT_ICON
-	local text = text or DEFAULT_EMPTY_STRING
-	local title = title or DEFAULT_EMPTY_STRING
+	local name = name or DEFAULT_EMPTY_STRING
+	local unlocked = unlocked or DEFAULT_EMPTY_STRING
 
-	frame.Name:SetText(text)
+	frame.Name:SetText(name)
 	frame.Icon.Texture:SetTexture(icon)
-	frame.Unlocked:SetText(title)
+	frame.Unlocked:SetText(unlocked)
 end
 
 local CriteriaAS = AlertFrame:AddQueuedAlertFrameSubSystem("CriteriaAlertFrameTemplate", Criteria_SetUp, 2, 0);
 
-local function DisplayCriteria(text, title, icon)
-	CriteriaAS:AddAlert(icon, text, title)
+local function DisplayCriteria(unlocked, name, icon)
+	CriteriaAS:AddAlert(icon, name, unlocked)
 end
 
 ---------------------------------------- Others ----------------------------------------
